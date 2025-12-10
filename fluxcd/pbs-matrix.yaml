@@ -24,5 +24,5 @@ spec:
         name: ess
       version: 25.12.0
       valuesFiles:
-        - ../values.yml
+        - values.yaml
   interval: 10m0s
