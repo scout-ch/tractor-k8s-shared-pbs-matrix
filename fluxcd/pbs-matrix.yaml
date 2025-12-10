@@ -8,31 +8,107 @@ spec:
   type: "oci"
   url: oci://ghcr.io/element-hq/ess-helm
 ---
-apiVersion: source.toolkit.fluxcd.io/v1
-kind: HelmChart
-metadata:
-  name: matrix-stack
-  namespace: pbs-matrix
-spec:
-  interval: 10m0s
-  chart: matrix-stack
-  reconcileStrategy: ChartVersion
-  sourceRef:
-    kind: HelmRepository
-    name: ess
-  version: 25.12.0
-  valuesFiles:
-    - ../values.yml
----
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: ess
+  name: pbs-matrix
   namespace: pbs-matrix
 spec:
   serviceAccountName: pbs-matrix
-  chartRef:
-    kind: HelmChart
-    name: matrix-stack
-    namespace: pbs-matrix
-  interval: 1m0s
+  interval: 10m0s
+  chart:
+    spec:
+      chart: matrix-stack
+      reconcileStrategy: ChartVersion
+      sourceRef:
+        kind: HelmRepository
+        name: ess
+      version: 25.12.0
+      values:
+        ingress:
+          annotations:
+            traefik.ingress.kubernetes.io/router.entrypoints: websecure # necessary, since we have multiple entrypoints
+            traefik.ingress.kubernetes.io/router.tls.certresolver: letsencrypt
+        elementAdmin:
+          ingress:
+            host: admin.chat.tractor.scout.ch
+          nodeSelector:
+            kaas.infomaniak.cloud/instance-pool: pck-8kxhclv-pdp
+        elementWeb:
+          ingress:
+            host: chat.tractor.scout.ch
+          nodeSelector:
+            kaas.infomaniak.cloud/instance-pool: pck-8kxhclv-pdp
+        matrixAuthenticationService:
+          postgres:
+            host: postgres.tractor.scout.ch
+            port: 5432
+            user: pbs-matrix-authentication-service
+            password:
+              secret: pbs-matrix-authentication-service-postgres
+              secretKey: password
+            database: pbs-matrix-authentication-service
+            sslMode: prefer
+          ingress:
+            host: account.chat.tractor.scout.ch
+          additional:
+            secrets.yaml:
+              configSecret: pbs-matrix-authentication-service-upstream-oauth2
+              configSecretKey: upstream_oauth2
+            auth.yaml:
+              config: |
+                account:
+                  email_change_allowed: false
+                  displayname_change_allowed: true
+                passwords:
+                  enabled: false
+          nodeSelector:
+            kaas.infomaniak.cloud/instance-pool: pck-8kxhclv-pdp
+        matrixRTC:
+          ingress:
+            host: mrtc.chat.tractor.scout.ch
+          nodeSelector:
+            kaas.infomaniak.cloud/instance-pool: pck-8kxhclv-pdp
+          sfu:
+            nodeSelector:
+              kaas.infomaniak.cloud/instance-pool: pck-8kxhclv-pdp
+        serverName: chat.tractor.scout.ch
+        synapse:
+          additional:
+            user-directory.yaml:
+              config: |
+                user_directory:
+                  enabled: true
+                  search_all_users: true
+                  prefer_local_users: true
+          postgres:
+            host: postgres.tractor.scout.ch
+            port: 5432
+            user: pbs-matrix
+            password:
+              secret: pbs-matrix-postgres
+              secretKey: password
+            database: pbs-matrix
+            sslMode: prefer
+          ingress:
+            host: matrix.chat.tractor.scout.ch
+          nodeSelector:
+            kaas.infomaniak.cloud/instance-pool: pck-8kxhclv-pdp
+          media:
+            storage:
+              resourcePolicy: delete
+              storageClassName: csi-cinder-sc-delete
+        initSecrets:
+          nodeSelector:
+            kaas.infomaniak.cloud/instance-pool: pck-8kxhclv-pdp
+        deploymentMarkers:
+          nodeSelector:
+            kaas.infomaniak.cloud/instance-pool: pck-8kxhclv-pdp
+        haproxy:
+          nodeSelector:
+            kaas.infomaniak.cloud/instance-pool: pck-8kxhclv-pdp
+        postgres:
+          enabled: false
+        wellKnownDelegation:
+          baseDomainRedirect:
+            enabled: false

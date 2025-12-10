@@ -16,5 +16,5 @@ On first install, some secrets need to be created manually (or externally) into 
 ```bash
 kubectl apply -f secrets.yml
 # Edit secrets to have content
-helm upgrade --install --namespace "pbs-matrix" ess oci://ghcr.io/element-hq/ess-helm/matrix-stack -f fluxcd/values.yaml --wait
+helm upgrade --install --namespace "pbs-matrix" ess oci://ghcr.io/element-hq/ess-helm/matrix-stack -f values.yaml --wait
 ```
