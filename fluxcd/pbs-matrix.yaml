@@ -17,7 +17,7 @@ spec:
   serviceAccountName: pbs-matrix
   chart:
     spec:
-      chart: ess
+      chart: matrix-stack
       reconcileStrategy: ChartVersion
       sourceRef:
         kind: HelmRepository
