@@ -6,7 +6,7 @@ metadata:
 spec:
   interval: 1h
   type: "oci"
-  url: oci://ghcr.io/element-hq/ess-helm/matrix-stack
+  url: oci://ghcr.io/element-hq/ess-helm
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
