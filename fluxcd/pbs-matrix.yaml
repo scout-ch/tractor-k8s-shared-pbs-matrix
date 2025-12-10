@@ -5,6 +5,7 @@ metadata:
   namespace: pbs-matrix
 spec:
   interval: 1h
+  type: "oci"
   url: oci://ghcr.io/element-hq/ess-helm/matrix-stack
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
