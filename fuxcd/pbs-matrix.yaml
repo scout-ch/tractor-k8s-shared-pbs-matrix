@@ -1,0 +1,27 @@
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: ess
+  namespace: pbs-matrix
+spec:
+  interval: 1h
+  url: oci://ghcr.io/element-hq/ess-helm/matrix-stack
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: pbs-matrix
+  namespace: pbs-matrix
+spec:
+  serviceAccountName: traefik
+  chart:
+    spec:
+      chart: ess
+      reconcileStrategy: ChartVersion
+      sourceRef:
+        kind: HelmRepository
+        name: ess
+      version: 25.12.0
+  interval: 10m0s
+  valuesFiles:
+    - ../values.yml

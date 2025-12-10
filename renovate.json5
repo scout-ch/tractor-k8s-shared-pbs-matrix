@@ -1,0 +1,37 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "mergeConfidence:all-badges",
+    "config:recommended",
+    ":disableRateLimiting",
+    ":enableVulnerabilityAlertsWithLabel(High priority)",
+    "group:allNonMajor",
+    "docker:pinDigests",
+    "docker:enableMajor",
+    "helpers:pinGitHubActionDigests"
+  ],
+  "dependencyDashboard": true,
+  "dependencyDashboardAutoclose": true,
+  "rebaseWhen": "behind-base-branch",
+  "separateMultipleMajor": false,
+  "separateMinorPatch": false,
+  "ignoreTests": true,
+  "assignees": [
+    "cleverer"
+  ],
+  "packageRules": [
+    {
+      "matchUpdateTypes": [
+        "digest"
+      ],
+      "automerge": true,
+      "automergeType": "branch"
+    }
+  ],
+  "kubernetes": {
+    "managerFilePatterns": [
+      "/fluxcd/.+\\.yaml$/",
+      "/.+\\.yml$/"
+    ]
+  }
+}
