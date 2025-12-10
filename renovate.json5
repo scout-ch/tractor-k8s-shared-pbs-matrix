@@ -33,5 +33,10 @@
       "/fluxcd/.+\\.yaml$/",
       "/.+\\.yml$/"
     ]
+  },
+  "flux": {
+    "managerFilePatterns": [
+      "/fluxcd/.+\\.yaml$/",
+    ]
   }
 }
