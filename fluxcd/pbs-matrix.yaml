@@ -28,7 +28,6 @@ spec:
     ingress:
       annotations:
         traefik.ingress.kubernetes.io/router.entrypoints: websecure # necessary, since we have multiple entrypoints
-        traefik.ingress.kubernetes.io/router.tls.certresolver: letsencrypt
     elementAdmin:
       ingress:
         host: admin.chat.tractor.scout.ch
@@ -112,3 +111,5 @@ spec:
     wellKnownDelegation:
       baseDomainRedirect:
         enabled: false
+    certManager:
+      clusterIssuer: letsencrypt
