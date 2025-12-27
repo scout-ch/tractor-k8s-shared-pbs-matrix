@@ -3,6 +3,8 @@ kind: Service
 metadata:
   name: ess-matrix-rtc-sfu-muxed-udp
   namespace: pbs-matrix
+  annotations:
+    loadbalancer.openstack.org/floating-network-id: 3974b029-b3b8-45e0-a46b-c9e13ed20ec4
 spec:
   ports:
     - name: rtc-muxed-udp
@@ -19,6 +21,8 @@ kind: Service
 metadata:
   name: ess-matrix-rtc-sfu-tcp
   namespace: pbs-matrix
+  annotations:
+    loadbalancer.openstack.org/floating-network-id: 3974b029-b3b8-45e0-a46b-c9e13ed20ec4
 spec:
   ports:
     - name: rtc-tcp
