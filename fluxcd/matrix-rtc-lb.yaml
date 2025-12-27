@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: ess-matrix-rtc-sfu-muxed-udp
+  name: pbs-matrix-rtc-sfu
   namespace: pbs-matrix
 spec:
   loadBalancerIP: 37.156.43.151
@@ -11,18 +11,6 @@ spec:
       port: 30882
       protocol: UDP
       targetPort: 30882
-  selector:
-    app.kubernetes.io/instance: ess-matrix-rtc-sfu
-  type: LoadBalancer
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: ess-matrix-rtc-sfu-tcp
-  namespace: pbs-matrix
-spec:
-  loadBalancerIP: 37.156.43.151
-  ports:
     - name: rtc-tcp
       nodePort: 30881
       port: 30881
