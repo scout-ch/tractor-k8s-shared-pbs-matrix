@@ -71,13 +71,13 @@ spec:
       sfu:
         nodeSelector:
           kaas.infomaniak.cloud/instance-pool: pck-8kxhclv-pdp
-        manualIP: 37.156.43.151
-        useStunToDiscoverPublicIP: false
         exposedServices:
           rtcTcp:
-            portType: HostPort
+            portType: LoadBalancer
           rtcMuxedUdp:
-            portType: HostPort
+            portType: LoadBalancer
+          rtcUdp:
+            portType: LoadBalancer
     serverName: chat.tractor.scout.ch
     synapse:
       additional:
