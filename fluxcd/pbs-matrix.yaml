@@ -23,7 +23,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: ess
-      version: 26.2.2
+      version: 26.2.3
   values:
     ingress:
       annotations:
