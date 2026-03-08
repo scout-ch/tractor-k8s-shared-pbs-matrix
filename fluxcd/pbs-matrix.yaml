@@ -1,7 +1,7 @@
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: OCIRepository
 metadata:
-  name: matric-stack
+  name: matrix-stack
   namespace: pbs-matrix
 spec:
   interval: 1h
@@ -18,7 +18,7 @@ spec:
   serviceAccountName: pbs-matrix
   interval: 10m0s
   chartRef:
-    name: matric-stack
+    name: matrix-stack
     namespace: pbs-matrix
     kind: OCIRepository
   values:
