@@ -1,7 +1,7 @@
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: OCIRepository
 metadata:
-  name: ess
+  name: matric-stack
   namespace: pbs-matrix
 spec:
   interval: 1h
@@ -17,14 +17,10 @@ metadata:
 spec:
   serviceAccountName: pbs-matrix
   interval: 10m0s
-  chart:
-    spec:
-      chart: matrix-stack
-      reconcileStrategy: ChartVersion
-      sourceRef:
-        kind: HelmRepository
-        name: ess
-      version: 26.2.3
+  chartRef:
+    name: matric-stack
+    namespace: pbs-matrix
+    kind: OCIRepository
   values:
     ingress:
       annotations:
