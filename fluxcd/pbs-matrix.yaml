@@ -58,6 +58,19 @@ spec:
               displayname_change_allowed: true
             passwords:
               enabled: false
+        email.yaml:
+          config: |
+            email:
+              from: '"chat.tractor.scout.ch Auth Service" <no-reply@chat.tractor.scout.ch>'
+              reply_to: '"Nicolas Da Mutten / Clever" <nicolas.damutten@pbs.ch>'
+              transport: smtp
+              mode: tls
+              hostname: smtp.mailomat.cloud
+              port: 587
+              username: no-reply@chat.tractor.scout.ch
+        email-secret.yaml:
+          configSecret: pbs-matrix-authentication-service-email
+          configSecretKey: config
       nodeSelector:
         kaas.infomaniak.cloud/instance-pool: pck-8kxhclv-pdp
     matrixRTC:
