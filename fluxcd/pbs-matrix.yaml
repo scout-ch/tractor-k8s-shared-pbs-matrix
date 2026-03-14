@@ -101,6 +101,20 @@ spec:
               - action: allow
             alias_creation_rules:
               - action: allow
+        email.yaml:
+          config: |
+            email:
+              smtp_host: smtp.mailomat.cloud
+              smtp_port: 587
+              smtp_user: "no-reply@chat.tractor.scout.ch"
+              force_tls: true
+              notif_from: "chat.tractor.scout.ch <no-reply@chat.tractor.scout.ch>"
+              app_name: "chat.tractor.scout.ch"
+              enable_notifs: true
+              notif_for_new_users: false
+        email-secret.yaml:
+          configSecret: pbs-matrix-synapse-email
+          configSecretKey: config
       postgres:
         host: postgres.tractor.scout.ch
         port: 5432
