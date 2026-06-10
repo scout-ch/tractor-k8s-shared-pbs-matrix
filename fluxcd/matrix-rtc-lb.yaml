@@ -4,7 +4,7 @@ metadata:
   name: pbs-matrix-rtc-sfu
   namespace: pbs-matrix
 spec:
-  loadBalancerIP: 37.156.43.151
+  loadBalancerIP: 84.234.24.154
   ports:
     - name: rtc-muxed-udp
       nodePort: 30882

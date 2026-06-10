@@ -81,7 +81,7 @@ spec:
       sfu:
         nodeSelector:
           kaas.infomaniak.cloud/instance-pool: pck-2tvwejg-pne
-        manualIP: 37.156.43.151
+        manualIP: 84.234.24.154
         useStunToDiscoverPublicIP: false
         exposedServices:
           rtcTcp:
